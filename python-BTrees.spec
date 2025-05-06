@@ -4,7 +4,7 @@
 %bcond_without	doc	# Sphinx documentation
 %bcond_without	tests	# unit tests
 %bcond_without	python2 # CPython 2.x module
-%bcond_without	python3 # CPython 3.x module
+%bcond_with	python3 # CPython 3.x module (built from python3-BTrees.spec)
 
 %define 	module	BTrees
 
@@ -13,10 +13,10 @@ Summary(pl.UTF-8):	Skalowalne trwałe kontenery dla obiektów
 Name:		python-%{module}
 # keep 4.x here for python2 support
 Version:	4.11.3
-Release:	3
+Release:	4
 License:	ZPL v2.1
 Group:		Libraries/Python
-#Source0Download: https://pypi.org/simple/BTrees/
+#Source0Download: https://pypi.org/simple/btrees/
 Source0:	https://files.pythonhosted.org/packages/source/B/BTrees/%{module}-%{version}.tar.gz
 # Source0-md5:	626347f5d1f9bce09765f58e55b51285
 URL:		https://pypi.org/project/BTrees/
@@ -48,10 +48,10 @@ BuildRequires:	python3-zope.testrunner
 %endif
 %if %{with doc}
 # already installed package
-BuildRequires:	python3-BTrees
-BuildRequires:	python3-repoze.sphinx.autointerface
-BuildRequires:	python3-sphinx_rtd_theme
-BuildRequires:	sphinx-pdg-3 >= 1.8
+BuildRequires:	python-BTrees
+BuildRequires:	python-repoze.sphinx.autointerface
+BuildRequires:	python-sphinx_rtd_theme
+BuildRequires:	sphinx-pdg-2 >= 1.8
 %endif
 Requires:	python-modules >= 1:2.7
 %requires_eq	python-persistent
@@ -114,9 +114,9 @@ Dokumentacja API modułu Pythona BTrees.
 %endif
 
 %if %{with doc}
-PYTHONPATH=$(pwd):$(echo $(pwd)/build-3/lib.*) \
+PYTHONPATH=$(pwd):$(echo $(pwd)/build-2/lib.*) \
 %{__make} -C docs html \
-	SPHINXBUILD=sphinx-build-3
+	SPHINXBUILD=sphinx-build-2
 %endif
 
 %install
